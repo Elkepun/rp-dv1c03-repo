@@ -23,10 +23,13 @@ pipeline {
         fi
 
         # Ensure port 32900 is not in use
-        if sudo lsof -i:32900; then
+        if lsof -i:32900; then
             echo "Port 32900 is in use. Freeing it up."
-            sudo kill -9 $(sudo lsof -t -i:32900) || true
+            kill -9 $(lsof -t -i:32900) || true
         fi
+
+        # Restart Docker service to ensure the port is free
+        sudo systemctl restart docker
 
         # Start the new container
         docker run -d --name svr-9956725d -p 32900:80 img-base-9956725d
@@ -35,6 +38,7 @@ pipeline {
         '''
     }
 }
+
 
 
 
