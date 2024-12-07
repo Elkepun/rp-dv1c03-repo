@@ -22,13 +22,20 @@ pipeline {
             docker rm -f svr-9956725d
         fi
 
-        # Create and start a new container
+        # Ensure port 32900 is not in use
+        if sudo lsof -i:32900; then
+            echo "Port 32900 is in use. Freeing it up."
+            sudo kill -9 $(sudo lsof -t -i:32900) || true
+        fi
+
+        # Start the new container
         docker run -d --name svr-9956725d -p 32900:80 img-base-9956725d
 
         echo "Server Setup Completed."
         '''
     }
 }
+
 
 
         stage('ST3-Parallel-9956725d') {
