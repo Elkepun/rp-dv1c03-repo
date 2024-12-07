@@ -15,20 +15,21 @@ pipeline {
         }
 
         stage('ST2-9956725d') {
+    steps {
+        sh '''
+        # Remove the old container if it exists
+        if [ "$(docker ps -aq -f name=svr-9956725d)" ]; then
+            docker rm -f svr-9956725d
+        fi
 
-            steps {
+        # Create and start a new container
+        docker run -d --name svr-9956725d -p 32900:80 img-base-9956725d
 
-                sh '''
+        echo "Server Setup Completed."
+        '''
+    }
+}
 
-                docker run -d --name svr-9956725d -p 32900:80 img-base-9956725d
-
-                echo "Server Setup Completed."
-
-                '''
-
-            }
-
-        }
 
         stage('ST3-Parallel-9956725d') {
 
