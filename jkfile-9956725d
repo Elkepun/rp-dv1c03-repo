@@ -29,7 +29,7 @@ pipeline {
         fi
 
         # Restart Docker service to ensure the port is free
-        systemctl restart docker
+       sudo systemctl restart docker
 
         # Start the new container
         docker run -d --name svr-9956725d -p 32900:80 img-base-9956725d
