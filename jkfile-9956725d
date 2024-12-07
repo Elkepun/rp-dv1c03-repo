@@ -1,0 +1,95 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('ST1-9956725d') {
+
+            steps {
+
+                echo 'Setup Release Environment Completed.'
+
+            }
+
+        }
+
+        stage('ST2-9956725d') {
+
+            steps {
+
+                sh '''
+
+                docker run -d --name svr-9956725d -p 32900:80 img-base-9956725d
+
+                echo "Server Setup Completed."
+
+                '''
+
+            }
+
+        }
+
+        stage('ST3-Parallel-9956725d') {
+
+            parallel {
+
+                stage('ST3a-9956725d') {
+
+                    steps {
+
+                        echo 'XSS Test Completed and Report Generated.'
+
+                    }
+
+                }
+
+                stage('ST3b-9956725d') {
+
+                    steps {
+
+                        echo 'SQLi Test Completed and Report Generated.'
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        stage('ST4-9956725d') {
+
+            steps {
+
+                echo 'Security Reports Checked.'
+
+            }
+
+        }
+
+        stage('ST5-9956725d') {
+
+            steps {
+
+                input message: 'Permission to proceed to the next phase?'
+
+            }
+
+        }
+
+        stage('ST6-9956725d') {
+
+            steps {
+
+                echo 'Pipeline Completed Successfully.'
+
+            }
+
+        }
+
+    }
+
+}
+
+
