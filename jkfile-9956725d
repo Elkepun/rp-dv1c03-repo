@@ -32,7 +32,7 @@ pipeline {
        sudo systemctl restart docker
 
         # Start the new container
-        docker run -d --name svr-9956725d -p 32900:80 img-base-9956725d
+        docker run -d --name svr-9956725d -p 32900:80 img-base-9956725d apachectl -D FOREGROUND
 
         echo "Server Setup Completed."
         '''
