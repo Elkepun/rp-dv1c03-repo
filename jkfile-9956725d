@@ -84,7 +84,10 @@ pipeline {
 
             steps {
 
-                input message: 'Permission to proceed to the next phase?'
+                input message: 'Hello 9956725d, permission to proceed to next phase?'
+                If ”Proceed” is selected, 
+                echo “ST5-9956725d : Approve to proceed to next phase”
+                If “Abort” is selected,  whole pipeline aborts.
 
             }
 
